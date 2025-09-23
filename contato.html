@@ -19,20 +19,28 @@
   </header>
   <main>
     <section id="contato" class="container">
-    <div class="item">
-    <h1>Contato</h1>
-    <p>Envie-me uma mensagem através do formulário abaixo:</p>
-    <form action="https://wa.me/5571992546082" method="get" target="_blank">
-        <label for="mensagem">Mensagem:</label>
-        <textarea id="mensagem" name="text" rows="4" cols="50" required></textarea>
-        <br>
-        <button type="submit">Enviar via WhatsApp</button>
-    </form>
-    </div>
-</section>
+      <div class="item">
+        <h1>Contato</h1>
+        <p>Envie-me uma mensagem através do formulário abaixo:</p>
+        <form onsubmit="enviarMensagem(event)">
+          <label for="mensagem">Mensagem:</label>
+          <textarea id="mensagem" name="text" rows="4" cols="50" required></textarea>
+          <br>
+          <button type="submit">Enviar via WhatsApp</button>
+        </form>
+      </div>
+    </section>
   </main>
   <footer>
-    <p>&copy; 2024 Geovana Mendes Fonseca. Todos os direitos reservados.</p>
+    <p>&copy; 2025 Geovana Mendes Fonseca. Todos os direitos reservados.</p>
   </footer>
+
+  <script>
+    function enviarMensagem(e) {
+      e.preventDefault();
+      let msg = document.getElementById("mensagem").value;
+      window.open(`https://wa.me/5571992546082?text=${encodeURIComponent(msg)}`, "_blank");
+    }
+  </script>
 </body>
 </html>

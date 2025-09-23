@@ -84,3 +84,23 @@ section {
   width: 100%;
   text-align: center;
 }
+
+footer {
+  position: relative;
+}
+
+#table-projetos {
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+#table-projetos th, #table-projetos td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+#table-projetos th {
+  background-color: #333;
+  color: #fff;
+}
