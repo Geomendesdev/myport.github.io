@@ -1,59 +1,67 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Efeito de rolagem suave para links de navegação
-  const links = document.querySelectorAll('nav a[href^="#"]');
 
-  for (const link of links) {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const targetId = e.currentTarget.getAttribute('href');
-      const targetSection = document.querySelector(targetId);
+    // Efeito de rolagem suave para links de navegação
+    const links = document.querySelectorAll('nav a[href^="#"]');
+    for (const link of links) {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = e.currentTarget.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
 
-      if (targetSection) {
-        window.scrollTo({
-          top: targetSection.offsetTop,
-          behavior: 'smooth'
+            if (targetSection) {
+                window.scrollTo({
+                    top: targetSection.offsetTop,
+                    behavior: 'smooth'
+                });
+            }
         });
-      }
+    }
+
+    // Animações GSAP que serão disparadas ao rolar a página
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // A seção está visível, então disparamos as animações com GSAP
+                
+                // Anima as palavras do título em sequência
+                gsap.from("h1 span", {
+                    y: 100,
+                    opacity: 0,
+                    duration: 1,
+                    stagger: 0.1, // Atraso de 0.1s entre cada palavra
+                    ease: "power2.out"
+                });
+
+                // Anima o parágrafo logo depois do título
+                gsap.from("p", {
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    delay: 0.8, // Começa depois da animação do título
+                    ease: "power2.out"
+                });
+
+                // Animação para os cubos, com a propriedade stagger
+                gsap.from(".caixa", {
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    delay: 1.5, // Começa depois do parágrafo
+                    stagger: 0.2,
+                    ease: "power2.out"
+                });
+
+                // Para evitar que a animação se repita ao rolar para cima e para baixo
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.2
     });
-  }
 
-  // Efeito de fade-in ao carregar a página
-  const sections = document.querySelectorAll('.item');
-  sections.forEach((section) => {
-    section.style.opacity = '0';
-    section.style.transform = 'translateY(20px)';
-    section.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
-  });
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
+    const sections = document.querySelectorAll('.item');
+    sections.forEach((section) => {
+        observer.observe(section);
     });
-  }, {
-    threshold: 0.2
-  });
 
-  sections.forEach((section) => {
-    observer.observe(section);
-  });
-});
-// Anima o título para que ele surja de cima para baixo
-gsap.from("h1", {
-    y: -50,
-    opacity: 0,
-    duration: 1,
-    ease: "power2.out"
-});
-
-// Animação para os novos cubos, com a propriedade stagger
-gsap.from(".caixa", {
-    y: 50,
-    opacity: 0,
-    duration: 0.8,
-    delay: 1, // Começa 1 segundo depois do título
-    stagger: 0.2, // Atraso de 0.2 segundos entre cada cubo
-    ease: "power2.out"
 });

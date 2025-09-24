@@ -8,13 +8,35 @@
   --cor-fundo: #e9ecef; /* Cinza claro para o fundo */
 }
 
+/* Fundo escuro e layout em tela cheia */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: var(--cor-fundo);
-  color: var(--cor-texto-escuro);
-  line-height: 1.6;
+    background-color: #000;
+    color: #fff;
+    font-family: sans-serif;
+}
+
+.item {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Estilo para o título */
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1.2;
+}
+
+h1 span {
+    display: inline-block; /* Importante para a animação */
+    overflow: hidden; /* Oculta o texto antes da animação */
 }
 
 h1, h2, h3 {
