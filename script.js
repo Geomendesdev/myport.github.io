@@ -40,3 +40,20 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(section);
   });
 });
+// Anima o título para que ele surja de cima para baixo
+gsap.from("h1", {
+    y: -50,
+    opacity: 0,
+    duration: 1,
+    ease: "power2.out"
+});
+
+// Animação para os novos cubos, com a propriedade stagger
+gsap.from(".caixa", {
+    y: 50,
+    opacity: 0,
+    duration: 0.8,
+    delay: 1, // Começa 1 segundo depois do título
+    stagger: 0.2, // Atraso de 0.2 segundos entre cada cubo
+    ease: "power2.out"
+});
