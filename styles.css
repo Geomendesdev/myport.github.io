@@ -179,3 +179,46 @@ footer {
     justify-content: center;
     align-items: center;
 }
+
+/* Estilos para o novo contêiner */
+.caixas-habilidades {
+    display: flex;
+    gap: 15px; /* Espaço entre os cubos */
+    margin-top: 30px;
+    justify-content: center;
+}
+
+/* Estilo base para todos os cubos */
+.caixa {
+    width: 80px;
+    height: 80px;
+    font-size: 36px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white; /* Cor da letra */
+    border-radius: 5px; /* Bordas arredondadas */
+}
+
+/* Cores específicas para cada cubo */
+.caixa.html {
+    background-color: #e34c26;
+}
+
+.caixa.js {
+    background-color: #f7df1e;
+    color: black;
+}
+
+.caixa.css {
+    background-color: #264de4;
+}
+
+.caixa.sql {
+    background-color: #00758f;
+}
+
+.caixa.python {
+    background-color: #3776ab;
+}
