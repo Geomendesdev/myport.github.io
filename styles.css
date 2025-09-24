@@ -10,9 +10,11 @@
 
 /* Fundo escuro e layout em tela cheia */
 body {
-    background-color: #000;
-    color: #fff;
-    font-family: sans-serif;
+    background-color: #f0f2f5; /* Um cinza bem claro, para o fundo */
+    color: #000; /* Cor do texto agora é preto */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 .item {
