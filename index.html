@@ -36,12 +36,23 @@
     <script src="gsap.min.js"></script>
     <script src="script.js"></script>
     <script>
-    gsap.to(".caixa", {
-        x: 400,
-        duration: 2,
-        backgroundColor: "#e34c26" /* Animação para a cor laranja do HTML */
-    });
-</script>
+        // Anima o título para que ele surja de cima para baixo
+        gsap.from("h1", {
+            y: -50,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out"
+        });
+
+        // Anima a "caixa H" para que ela surja de baixo para cima, com um pequeno atraso
+        gsap.from(".caixa", {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            delay: 0.5, // Começa a animação 0.5s depois do título
+            ease: "power2.out"
+        });
+    </script>
 
 </body>
 </html>
