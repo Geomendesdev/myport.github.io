@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acesso - IbvnSite</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-color: #fce4ec;
+      --accent-color: #e91e1e;
+      --white-color: #fff;
+      --gray-text-color: #666;
+      --error-color: #d93025;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+
+    body {
+      background: linear-gradient(135deg, var(--primary-color), #f8bbbb);
+      display: flex; justify-content: center; align-items: center;
+      min-height: 100vh; padding: 1rem;
+    }
+
+    .form-container {
+      background-color: var(--white-color);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 100%; max-width: 420px; overflow: hidden;
+    }
+
+    .form-wrapper { display: flex; width: 200%; transition: transform 0.6s ease; }
+    .form-section {
+      width: 50%; padding: 2rem; text-align: center; flex-shrink: 0;
+      display: flex; flex-direction: column; justify-content: center; min-height: 100%;
+    }
+
+    .btn-back { align-self: flex-start; background: none; border: none; color: var(--gray-text-color);
+      font-size: 0.9rem; margin-bottom: 1rem; cursor: pointer; text-decoration: none; }
+    .btn-back:hover { color: var(--accent-color); }
+    .btn-back::before { content: '← '; }
+
+    .form-container.show-register .form-wrapper { transform: translateX(-50%); }
+
+    .form-logo { font-size: 2rem; font-weight: 700; color: var(--accent-color); margin-bottom: 0.5rem; text-decoration: none; }
+    h2 { color: #333; margin-bottom: 1.5rem; font-weight: 500; }
+
+    .input-group { text-align: left; margin-bottom: 1rem; }
+    .input-group label { display: block; margin-bottom: 0.3rem; color: var(--gray-text-color); font-size: 0.9rem; }
+    .input-group input {
+      width: 100%; padding: 0.8rem 1rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;
+    }
+
+    .error-message {
+      color: var(--error-color); background-color: #fbe9e7; border: 1px solid #ffab91;
+      border-radius: 8px; padding: 0.6rem; margin-bottom: 1rem;
+      font-size: 0.9rem; text-align: center; display: none;
+    }
+
+    .btn-submit {
+      width: 100%; padding: 0.9rem; border: none;
+      background-color: var(--accent-color); color: var(--white-color);
+      font-size: 1rem; font-weight: 700; border-radius: 8px; cursor: pointer; margin-top: 1.5rem;
+    }
+    .btn-submit:hover { background-color: #d81b1b; }
+
+    .switch-link { margin-top: 1rem; font-size: 0.9rem; color: var(--gray-text-color); }
+    .switch-link a { color: var(--accent-color); font-weight: 700; text-decoration: none; }
+    .switch-link a:hover { text-decoration: underline; }
+  </style>
+</head>
+
+<body>
+  <div class="form-container" id="form-container">
+    <div class="form-wrapper">
+
+      <!-- Login -->
+      <div class="form-section login-form">
+        <a href="IbvnSite.html" class="btn-back">Voltar ao IbvnSite</a>
+        <a href="IbvnSite.html" class="form-logo">IbvnSite</a>
+        <h2>Acesse sua conta</h2>
+
+        <p class="error-message" id="login-error-message">Usuário incorreto.</p>
+
+        <form id="loginForm">
+          <div class="input-group">
+            <label for="username">Nome de Usuário</label>
+            <input type="text" id="username" required>
+          </div>
+          <button type="submit" class="btn-submit">Entrar</button>
+        </form>
+
+        <p class="switch-link">
+          Não tem uma conta? <a id="show-register-link">Cadastre-se</a>
+        </p>
+      </div>
+
+      <!-- Cadastro -->
+      <div class="form-section register-form">
+        <a href="IbvnSite.html" class="btn-back">Voltar ao IbvnSite</a>
+        <a href="IbvnSite.html" class="form-logo">IbvnSite</a>
+        <h2>Crie sua conta</h2>
+
+        <form id="registerForm">
+          <div class="input-group">
+            <label for="new-username">Nome de Usuário</label>
+            <input type="text" id="new-username" required>
+          </div>
+          <button type="submit" class="btn-submit">Cadastrar</button>
+        </form>
+
+        <p class="switch-link">
+          Já tem uma conta? <a id="show-login-link">Entre</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const formContainer = document.getElementById('form-container');
+    const showRegisterLink = document.getElementById('show-register-link');
+    const showLoginLink = document.getElementById('show-login-link');
+    const loginErrorMessage = document.getElementById('login-error-message');
+
+    // Guardar usuário no navegador
+    let savedUsername = localStorage.getItem("savedUsername") || null;
+
+    showRegisterLink.addEventListener('click', () => {
+      formContainer.classList.add('show-register');
+      loginErrorMessage.style.display = 'none';
+    });
+
+    showLoginLink.addEventListener('click', () => {
+      formContainer.classList.remove('show-register');
+      document.getElementById('registerForm').reset();
+    });
+
+    // Login
+    const loginForm = document.getElementById('loginForm');
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+
+      if (username === savedUsername) {
+        loginErrorMessage.style.display = 'none';
+        alert("Login bem-sucedido!");
+        window.location.href = "IbvnSite.html";
+      } else {
+        loginErrorMessage.style.display = 'block';
+      }
+    });
+
+    // Cadastro
+    const registerForm = document.getElementById('registerForm');
+    registerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const newUsername = document.getElementById('new-username').value.trim();
+
+      if(newUsername) {
+        localStorage.setItem("savedUsername", newUsername);
+        savedUsername = newUsername;
+        alert("Cadastro realizado com sucesso!");
+        formContainer.classList.remove('show-register');
+        registerForm.reset();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Rosa Moderno</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #fce4ec;
+            --secondary-color: #f06262;
+            --accent-color: #e91e1e;
+            --text-color: #333;
+            --white-color: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+        }
+
+        header {
+            background-color: var(--white-color);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-button {
+           background-color: var(--accent-color);
+           color: var(--white-color) !important;
+           padding: 0.6rem 1.2rem;
+           border-radius: 50px;
+           font-weight: 700;
+           transition: background-color 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: #d81b1b;
+        }
+
+        /* Foto do usuário no menu */
+        #user-photo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: none;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+            margin-left: 1rem;
+        }
+
+        main {
+            padding-top: 70px;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        #inicio {
+            background: linear-gradient(to right, var(--primary-color), #f8bbbb);
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-color);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--white-color);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #d81b1b;
+            transform: translateY(-3px);
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background-color: var(--white-color);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        
+        .card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--white-color);
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent-color);
+            color: var(--white-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 20px;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+        }
+
+        #back-to-top:hover {
+            transform: scale(1.1);
+        }
+        
+        #back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #perfil-info {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            font-weight: bold;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#inicio" class="logo">IbvnSite</a>
+            <ul>
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="login.html" class="nav-button">Cadastro</a></li>
+                <li><a href="perfil.html" class="nav-button">Meu Perfil</a></li>
+            </ul>
+
+            <!-- Foto do usuário -->
+            <img id="user-photo" src="" alt="Foto do usuário">
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio">
+            <div class="container">
+                <h1>Bem-vindo ao IBVN!</h1>
+                <p>Uma experiência de comunicação direta e estudos bíblicos.</p>
+
+                <!-- Nome e cargo -->
+                <p id="perfil-info"></p>
+
+                <a href="#sobre" class="btn">Conheça Mais</a>
+            </div>
+        </section>
+
+        <section id="sobre">
+            <div class="container">
+                <h2>Sobre Nós</h2>
+                <p>Nunca foi sobre nós ;)</p>
+            </div>
+        </section>
+
+        <section id="servicos">
+            <div class="container">
+                <h2>Nossos Serviços</h2>
+                <div class="cards-container">
+                    <div class="card">
+                        <h3>Web Design</h3>
+                        <p>Criamos layouts intuitivos e responsivos que se destacam e proporcionam a melhor experiência ao usuário.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Branding</h3>
+                        <p>Desenvolvemos identidades visuais marcantes que conectam sua marca ao seu público de forma autêntica.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Marketing Digital</h3>
+                        <p>Estratégias digitais personalizadas para aumentar sua visibilidade e impulsionar seus resultados online.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 IbvnSite. Criado por Geovana Mendes, em Salvador BA.</p>
+    </footer>
+
+    <a href="#inicio" id="back-to-top" title="Voltar ao topo">&#8679;</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Rolagem suave
+            const scrollLinks = document.querySelectorAll('nav a[href^="#"], a.btn[href^="#"], #back-to-top');
+            scrollLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    let targetId = this.getAttribute('href');
+                    let targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // Botão voltar ao topo
+            const backToTopButton = document.getElementById('back-to-top');
+            const toggleBackToTopButton = () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('show');
+                } else {
+                    backToTopButton.classList.remove('show');
+                }
+            };
+            window.addEventListener('scroll', toggleBackToTopButton);
+            toggleBackToTopButton();
+
+            // Nome e cargo
+            let nome = localStorage.getItem("nome");
+            let cargo = localStorage.getItem("cargo");
+
+            if (nome && cargo) {
+                let cargoTexto = "";
+                switch(cargo) {
+                    case "membro": cargoTexto = "Membro"; break;
+                    case "louvor": cargoTexto = "Membro do Grupo de Louvor"; break;
+                    case "lider": cargoTexto = "Líder"; break;
+                    case "pastor": cargoTexto = "Pastor"; break;
+                    case "midia": cargoTexto = "Mídia"; break;
+                }
+                document.getElementById("perfil-info").textContent = `Bem-vindo, ${nome} (${cargoTexto})`;
+            }
+
+            // Foto do usuário
+            const userPhoto = document.getElementById('user-photo');
+            const savedPhoto = localStorage.getItem('profilePhoto');
+            if (savedPhoto) {
+                userPhoto.src = savedPhoto;
+                userPhoto.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

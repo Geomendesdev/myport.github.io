@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil - IBVN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #fce4ec;
+            --secondary-color: #f06262;
+            --accent-color: #e91e1e;
+            --text-color: #333;
+            --white-color: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 3rem auto;
+            background: var(--white-color);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 1rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.8rem;
+            margin-top: 0.5rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            margin-top: 2rem;
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent-color);
+            color: var(--white-color);
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #d81b1b;
+        }
+
+        a.voltar {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            text-decoration: none;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        #preview {
+            display: block;
+            margin: 1rem auto;
+            max-width: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Meu Perfil</h1>
+        <form id="perfilForm">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome">
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email">
+
+            <label for="cargo">Cargo na Igreja:</label>
+            <select id="cargo">
+                <option value="membro">Membro</option>
+                <option value="louvor">Membro do Grupo de Louvor</option>
+                <option value="lider">Líder</option>
+                <option value="pastor">Pastor</option>
+                <option value="midia">Mídia</option>
+            </select>
+
+            <label for="foto">Foto de Perfil:</label>
+            <input type="file" id="foto" accept="image/*">
+            <img id="preview" src="" alt="Prévia da foto">
+
+            <button type="button" onclick="salvarPerfil()">Salvar Alterações</button>
+        </form>
+
+        <a href="IbvnSite.html" class="voltar">← Voltar para o Início</a>
+    </div>
+
+    <script>
+        // Carrega dados salvos
+        window.onload = function() {
+            if(localStorage.getItem("nome")) {
+                document.getElementById("nome").value = localStorage.getItem("nome");
+            }
+            if(localStorage.getItem("email")) {
+                document.getElementById("email").value = localStorage.getItem("email");
+            }
+            if(localStorage.getItem("cargo")) {
+                document.getElementById("cargo").value = localStorage.getItem("cargo");
+            }
+            if(localStorage.getItem("foto")) {
+                document.getElementById("preview").src = localStorage.getItem("foto");
+            }
+        }
+
+        // Pré-visualizar foto
+        document.getElementById("foto").addEventListener("change", function(e) {
+            let reader = new FileReader();
+            reader.onload = function() {
+                document.getElementById("preview").src = reader.result;
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
+
+        // Salva no LocalStorage
+        function salvarPerfil() {
+    let nome = document.getElementById("nome").value;
+    let email = document.getElementById("email").value;
+    let cargo = document.getElementById("cargo").value;
+    let foto = document.getElementById("preview").src;
+
+    localStorage.setItem("nome", nome);
+    localStorage.setItem("email", email);
+    localStorage.setItem("cargo", cargo);
+    if(foto) {
+        localStorage.setItem("profilePhoto", foto); // <-- chave deve ser igual à do IbvnSite.html
+    }
+
+    alert("Perfil atualizado com sucesso!");
+}
+
+    </script>
+</body>
+</html>
